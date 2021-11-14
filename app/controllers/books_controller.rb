@@ -4,6 +4,7 @@ class BooksController < ApplicationController
     @books = Book.find(params[:id])
     @user = @books.user
     @book = Book.new
+    @post_comment = PostComment.new
 
   end
 
@@ -12,6 +13,7 @@ class BooksController < ApplicationController
     @book = Book.new
     @users = User.all
     @user = current_user
+     
   end
 
   def create
@@ -33,7 +35,6 @@ class BooksController < ApplicationController
       redirect_to books_path
     end    
   end
-
 
 
   def update
