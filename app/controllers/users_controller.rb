@@ -9,10 +9,11 @@ class UsersController < ApplicationController
   end
 
   def index
+    
     @users = User.all
     @user = current_user
     @book = Book.new
-    
+
   end
 
   def edit
@@ -35,7 +36,7 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
-  
+
   private
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)

@@ -1,16 +1,40 @@
+    <% flash.each do |message_type, message| %>
+      <%= message %>
+    <% end %>
 <table class='table'>
   <thead>
     <tr>
       <th>image</th>
       <th>name</th>
       <th colspan="3"></th>
+      <th colspan="3"></th>
     </tr>
   </thead>
   <tbody>
     <% users.each do |user| %>
       <tr>
-
+        <td><%= link_to user_path(user) do %>
+          <%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %>
+          <% end %>
+        </td>
         <td><%= user.name %></td>
+        <td>フォロー数：<%= user.follows.count %></td>
+        <td>フォロワー数：<%= user.followers.count %></td>
+        <td>
+
+      <% unless current_user == user %>
+         <% if current_user.following?(user) %>
+            <%= link_to user_relationships_path(user), method: :delete do %>
+            フォロー解除
+            <% end %>
+        <% else %>
+            <%= link_to user_relationships_path(user),method: :post do %>
+            フォローする
+            <% end %>
+        <% end %>
+      <% end %>
+      
+        </td>
         <td><%= link_to 'Show', user_path(user), class: "user_#{user.id}" %></td>
         <% if current_page?(controller: 'users', action: 'index')  %>
         <% else %>
