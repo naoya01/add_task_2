@@ -1,5 +1,5 @@
 <table class='table'>
-  
+
   <tr>
 	  <th>name</th>
 	  <th><%= @user.name %></th>
@@ -8,7 +8,29 @@
 	  <th>introduction</th>
 	  <th><%= @user.introduction %></th>
   </tr>
+  <tr>
+	  <th>follows</th>
+	  <th><%= link_to @user.follows.count,follows_user_relationships_path(@user) %></th>
+  </tr>
+  <tr>
+	  <th>followers</th>
+	  <th><%= link_to @user.followers.count,followers_user_relationships_path(@user) %></th>
+  </tr>
 </table>
+
+<% unless current_user == @user %>
+  <% unless controller.controller_name == 'books' && controller.action_name == 'show' %>
+     <% if current_user.following?(user) %>
+        <%= link_to user_relationships_path(user),class:"btn btn-info mb-4" ,method: :delete do %>
+        フォロー外す
+        <% end %>
+    <% else %>
+        <%= link_to user_relationships_path(user),class:"btn btn-success mb-4",method: :post do %>
+        フォローする
+        <% end %>
+    <% end %>
+  <% end %>
+<% end %>
 
 <div class='row'>
   <%= link_to '',edit_user_path(@user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{@user.id}" %>

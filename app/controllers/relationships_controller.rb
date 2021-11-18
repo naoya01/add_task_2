@@ -1,5 +1,15 @@
 class RelationshipsController < ApplicationController
+  def follows
+    
+    @user = User.find(params[:user_id])
+    @users = @user.follows
+    
+  end
 
+  def followers
+    @user = User.find(params[:user_id])
+    @users = @user.followers
+  end
 
   def create
     user = User.find(params[:user_id])
