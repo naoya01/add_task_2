@@ -4,8 +4,8 @@ class BooksController < ApplicationController
     @books = Book.find(params[:id])
     @user = @books.user
     @book = Book.new
-    @post_comment = PostComment.new
-
+    @comment = PostComment.new
+    @comments = @books.post_comments
   end
 
   def index
@@ -13,7 +13,7 @@ class BooksController < ApplicationController
     @book = Book.new
     @users = User.all
     @user = current_user
-     
+
   end
 
   def create
@@ -33,7 +33,7 @@ class BooksController < ApplicationController
       render "edit"
     else
       redirect_to books_path
-    end    
+    end
   end
 
 
