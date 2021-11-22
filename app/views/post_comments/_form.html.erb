@@ -1,6 +1,6 @@
 <div>
 <%= form_with(model:[@books, @comment]) do |f| %>
-  <%= f.text_area :comment, size:"90x5",placeholder: "コメントをここに" %></br>
+  <%= f.text_area :comment,placeholder: "コメントをここに", class:"text_area" %></br>
   <%= f.submit "送信",class: "comment_btn" %>
 <% end %>
 </div>
