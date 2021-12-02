@@ -24,6 +24,7 @@
           <% end %>
           <td class="favorite-btn_<%= @books.id %>"><%= render 'favorites/favorite-btn', book: @books %></td>
           <td><%= @books.post_comments.count %></td>
+          <td>閲覧数：<%=  @books.impressionist_count %></td>
         </tr>
       </table>
     <div id="comments_area">

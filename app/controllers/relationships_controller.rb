@@ -1,9 +1,9 @@
 class RelationshipsController < ApplicationController
   def follows
-    
+
     @user = User.find(params[:user_id])
     @users = @user.follows
-    
+
   end
 
   def followers
@@ -15,6 +15,7 @@ class RelationshipsController < ApplicationController
     user = User.find(params[:user_id])
     if current_user.follow(user)
        flash[:success] = 'ユーザーをフォローしました'
+
       redirect_to request.referer
     else
       flash.now[:alert] = 'ユーザーのフォローに失敗しました'

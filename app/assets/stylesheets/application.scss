@@ -42,3 +42,33 @@ div {
   width: 90%;
   height:150px;
 }
+
+.chat{
+  // display:flex;
+}
+
+.my-chat_box{
+  text-align: right
+}
+
+.other-chat_box{
+
+}
+
+.chat-name{
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.chat-message{
+  background-color: rgb(7, 161, 167);
+  display: inline-block;
+  padding: 3px 10px;
+  margin:5px;
+  border-radius: 5px;
+}
+
+.chat-time{
+  font-size: 12px;
+}

@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   get 'home/about' => 'homes#about'
   get 'search', to: 'searches#search'
   devise_for :users
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create,:show] 
   resources :users,only: [:show,:index,:edit,:update] do
+
   resource :relationships, only: [:create, :destroy] do
     member do
       get 'follows','followers'
