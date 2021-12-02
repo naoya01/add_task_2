@@ -1,10 +1,12 @@
 <div class='container px-5 px-sm-0'>
 
 <div class="left-button">
-  <%= link_to "ユーザー一覧に戻る", users_path,class:"edit-link" %>
+  <%= link_to "ユーザー一覧", users_path,class:"edit-link" %>
 </div>
 
 <% @entries.each do |e| %>
+  <% if e.user == current_user %>
+  <% else %>
   <div class="chat-name">
   <strong>
       <%= link_to user_path(e.user) do %>
@@ -14,6 +16,7 @@
       </a>
   </strong>
   </div>
+  <% end %>
 <% end %>
 <hr>
 <div class="chats">
@@ -43,7 +46,7 @@
         <%= f.hidden_field :room_id, value: @room.id %>
           <%= f.submit "投稿",class: 'form-submit'%>
     <% end %>
-    <%= impressions_count %>
+
   </div>
 </div>
 </div>

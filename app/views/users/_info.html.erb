@@ -1,5 +1,5 @@
 <table class='table'>
-  <tr><%= attachment_image_tag(@user, :profile_image, :fill, 100, 100, fallback: "no-image-icon.jpg") %></tr>
+  <tr><%= attachment_image_tag(@user, :profile_image, :fill, 70, 70, fallback: "no-image-icon.jpg",size: "70x70") %></tr>
   <tr>
 	  <th>name</th>
 	  <th><%= @user.name %></th>
@@ -32,7 +32,7 @@
   <% end %>
 <% end %>
 
-<% unless request.path.include?("/") %>
+<% unless request.path.include?("books/") %>
   <% unless @user.id == current_user.id %>
     <% if (current_user.following?@user) && (@user.following?current_user)  %>
     <% if @isRoom == true %>
