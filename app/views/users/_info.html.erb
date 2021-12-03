@@ -32,18 +32,18 @@
   <% end %>
 <% end %>
 
-<% unless request.path.include?("books/") %>
-  <% unless @user.id == current_user.id %>
-    <% if (current_user.following?@user) && (@user.following?current_user)  %>
-    <% if @isRoom == true %>
+<% unless request.path.include?("books/") %> <!-- URLにbooksが含まれていないときに表示 -->
+  <% unless @user.id == current_user.id %>　<!-- 詳細ページがログインしたユーザーのページでないときに表示 -->
+    <% if (current_user.following?@user) && (@user.following?current_user)  %>　<!-- ログインユーザーと詳細ページのユーザーがお互いにフォローしているとき表示 -->
+    <% if @isRoom == true %>　<!-- （userコントローラで定義した）すでにroomがある場合-->
       <p class="user-show-room">
-        <%= link_to "チャットへ", room_path(@roomId),class:"btn btn-primary btn" %>
-    <% else %>
-      <%= form_for @room do |f| %>
+        <%= link_to "チャットへ", room_path(@roomId),class:"btn btn-primary btn-sm" %>
+    <% else %>　<!-- まだroomが作られていない場合-->
+      <%= form_with model: @room do |f| %> <!-- roomとentryに相手ユーザーのidを同時に送っている-->
         <%= fields_for @entry do |e| %>
           <%= e.hidden_field :user_id, value: @user.id %>
         <% end %>
-        <%= f.submit "チャットを始める", class:"btn btn-primary btn-sm user-show-chat mb-4"%>
+        <%= f.submit "チャットを始める", class:"btn btn-primary btn-sm user-show-chat mb-4"%> <!-- ボタンを押したらroomモデルへデータが送られroomコントローラが動く-->
       <% end %>
     <% end %>
     <% end %>
