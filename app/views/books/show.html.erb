@@ -25,6 +25,23 @@
           <td class="favorite-btn_<%= @books.id %>"><%= render 'favorites/favorite-btn', book: @books %></td>
           <td><%= @books.post_comments.count %></td>
           <td>閲覧数：<%=  @books.impressionist_count %></td>
+                  <td>
+          <div class="relative-post-evaluation">
+            <span id="star-rate-<%= @books.id %>"></span>
+            <script>
+              $('#star-rate-<%= @books.id %>').raty({
+                size: 36,
+                starOff: "<%= asset_path('star-off.png') %>",
+                starOn: "<%= asset_path('star-on.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+                half: true,
+                readOnly: true,
+                score: <%= @books.evaluation %>
+              });
+            </script>
+              <%= @book.evaluation %>
+          </div>
+        </td>
         </tr>
       </table>
     <div id="comments_area">

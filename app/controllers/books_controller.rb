@@ -16,7 +16,7 @@ class BooksController < ApplicationController
     @books = Book.all # 本全部 #
 
     # @books = Book.includes(:favorited_users).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size}　bookモデルで定義したfavarited_useでいい数を比較
-    @books = Book.includes(:favorites).sort {|a,b| b.favorites.size <=> a.favorites.size} #いいね数を比較して順番を決めている#
+    # @books = Book.includes(:favorites).sort {|a,b| b.favorites.size <=> a.favorites.size} #いいね数を比較して順番を決めている#
 
 
     to  = Time.current.at_end_of_day #今日の23:59の日時を取得 (toは任意)#
@@ -38,8 +38,13 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to book_path(@book), notice: "You have created book successfully."
     else
-      @books = Book.all
-      render 'index'
+      # @books = Book.all
+      # @user =
+      # @book = Book.new
+      # @users = User.all
+      # @user = current_user
+      # render 'index'
+      redirect_to books_path
     end
   end
 
@@ -71,7 +76,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title,:body)
+    params.require(:book).permit(:title,:body,:evaluation)
   end
 
 end

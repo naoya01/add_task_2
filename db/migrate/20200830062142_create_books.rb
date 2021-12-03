@@ -4,6 +4,7 @@ class CreateBooks < ActiveRecord::Migration[5.2]
       t.string :title
       t.text :body
       t.integer :user_id
+      t.float :evaluation, null: false
       t.timestamps
     end
   end
