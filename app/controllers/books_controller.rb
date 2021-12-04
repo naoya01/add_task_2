@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  impressionist :actions=> [:show,:index]
+  impressionist :actions=> [:show,:index,:search]
 
   def show
     @books = Book.find(params[:id])
@@ -29,6 +29,16 @@ class BooksController < ApplicationController
     @book = Book.new
     @users = User.all
     @user = current_user
+    if params[:sort_update]
+     @books = Book.all.order(created_at: :desc)
+    elsif params[:sort_evaluation]
+      @books = Book.latest
+    elsif params[:sort_favorite]
+      @books = Book.includes(:favorites).sort {|a,b| b.favorites.size <=> a.favorites.size} #いいね数を比較して順番を決めている#
+    else
+      @books = Book.all
+    end
+
 
   end
 
@@ -73,10 +83,15 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
+  def search
+    @book = Book.new
+    @books = Book.search(params[:keyword])
+    @user = current_user
+  end
   private
 
   def book_params
-    params.require(:book).permit(:title,:body,:evaluation)
+    params.require(:book).permit(:title,:body,:evaluation,:category)
   end
 
 end

@@ -4,6 +4,7 @@
       <th></th>
       <th>Title</th>
       <th>Opinion</th>
+      <th>Category</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +17,11 @@
         </td>
         <td><%= link_to book.title, book_path(book), class: "book_#{book.id}" %></td>
         <td><%= book.body %></td>
+        <td><%= form_with(url: search_books_path, local: true, method: :get, class: "search-form") do |form| %>
+          <%= hidden_field_tag :keyword, book.category %>
+            <%= form.submit book.category,class:"category-btn" %>
+          <% end %>
+        </td>
         <td class="favorite-btn_<%= book.id %>">
           <%= render 'favorites/favorite-btn', book: book %>
           </td>
@@ -41,4 +47,5 @@
       </tr>
     <% end %>
   </tbody>
+
 </table>

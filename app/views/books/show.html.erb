@@ -18,10 +18,7 @@
           </td>
           <td><%= link_to @books.title, book_path(@books) %></td>
           <td><%= @books.body %></td>
-          <% if @books.user == current_user %>
-          <td><%= link_to 'Edit', edit_book_path(@books), class: "btn btn-sm btn-success edit_book_#{@books.id}" %></td>
-          <td><%= link_to 'Destroy', book_path(@books), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
-          <% end %>
+          <td><%= @books.category %></td>
           <td class="favorite-btn_<%= @books.id %>"><%= render 'favorites/favorite-btn', book: @books %></td>
           <td><%= @books.post_comments.count %></td>
           <td>閲覧数：<%=  @books.impressionist_count %></td>
@@ -42,6 +39,10 @@
               <%= @book.evaluation %>
           </div>
         </td>
+        <% if @books.user == current_user %>
+        <td><%= link_to 'Edit', edit_book_path(@books), class: "btn btn-sm btn-success edit_book_#{@books.id}" %></td>
+        <td><%= link_to 'Destroy', book_path(@books), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
+        <% end %>
         </tr>
       </table>
     <div id="comments_area">

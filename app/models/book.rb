@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+scope :latest, -> {order(evaluation: :desc)}
 is_impressionable or
 
 is_impressionable :counter_cache => true
@@ -6,7 +7,6 @@ is_impressionable :counter_cache => true
 	has_many :favorites,dependent: :destroy
 	# has_many :favorited_users,through: :favorites ,source: :user
 	has_many :post_comments,dependent: :destroy
-
 
 	validates :title, presence: true
 	validates :body, presence: true, length: {maximum: 200}
@@ -18,4 +18,13 @@ is_impressionable :counter_cache => true
 	def last_week # メソッド名は何でも良いです
 	  Book.joins(:favorites).where(favorites: { created_at:　0.days.ago.prev_week..0.days.ago.prev_week(:sunday)}).group(:id).order("count(*) desc")
 	end
+
+  def self.search(search)
+    if search != ""
+      Book.where(['category LIKE(?)', "%#{search}%"])
+    else
+      Book.includes(:user).order('created_at DESC')
+    end
+  end
+
 end

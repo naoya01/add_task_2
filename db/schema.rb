@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_043620) do
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.text "body"
+    t.string "category"
     t.integer "user_id"
     t.float "evaluation", null: false
     t.datetime "created_at", null: false

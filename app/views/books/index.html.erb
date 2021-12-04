@@ -9,6 +9,10 @@
     <div class='col-md-8 offset-md-1'>
   <%= render 'searches/form' %>
       <h2>Books</h2>
+      <%= link_to '新しい順', books_path(sort_update: "true") %>｜
+      <%= link_to '評価順', books_path(sort_evaluation: "true") %>｜
+      <%= link_to '古い順', books_path %> ｜
+      <%= link_to 'いいね順', books_path(sort_favorite: "true") %>
       <%= render 'books/index', books: @books%>
     </div>
   </div>
