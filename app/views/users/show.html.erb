@@ -10,6 +10,57 @@
   <%= render 'searches/form' %>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
+    <div class = "table_width">
+     <table class="table table-bordered">
+      <thead>
+       <tr>
+        <th>今日の投稿数</th>
+        <th>前日の投稿数</th>
+        <th>前日比</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+       　<td><%= @user.books.where(created_at: @today).count %></td>
+       　<td><%= @user.books.where(created_at: @yesterday).count %></td>
+       　<td>
+         <% if  current_user.books.where(created_at: @today).count == 0 %>
+          前日の投稿はありません
+         <% else %>
+         　<% @the_day_before =   @user.books.where(created_at: @today).count / @user.books.where(created_at: @yesterday).count.to_f  %>
+         　<%= (@the_day_before * 100).round %>
+         <% end %>
+        </td>
+       </tr>
+      </tbody>
+     </table>
     </div>
+    <div class = "table_width">
+     <table class="table table-bordered">
+      <thead>
+       <tr>
+        <th>今週の投稿数</th>
+        <th>先週の投稿数</th>
+        <th>前週比</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+       　<td><%= @user.books.where(created_at: @week).count %></td>
+       　<td><%= @user.books.where(created_at: @weekago).count %></td>
+       　<td>
+         <% if  current_user.books.where(created_at: @weekago).count == 0 %>
+          前日の投稿はありません
+         <% else %>
+         　<% @the_day_before =   @user.books.where(created_at: @week).count / @user.books.where(created_at: @weekago).count %>
+           <%= @the_day_before.round %>
+         <% end %>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+  </div>
+
   </div>
 </div>

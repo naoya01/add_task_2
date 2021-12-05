@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+	
 scope :latest, -> {order(evaluation: :desc)}
 is_impressionable or
 

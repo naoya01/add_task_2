@@ -23,6 +23,18 @@ class UsersController < ApplicationController
       end
     end
 
+    # to  = Time.current.at_end_of_day #今日の23:59の日時を取得 (toは任意)#
+    # from  = (to - 6.day).at_beginning_of_day #6日前の0:00の日時取得 (fromは任意)#
+    # @books = Book.includes(:favorites).sort {|a,b|
+    #     b.favorites.includes(:favorites).where(created_at: from...to).size <=>
+    #     a.favorites.includes(:favorites).where(created_at: from...to).size
+    #   }
+      now = Time.current
+      @today = now.all_day #今日
+      @yesterday = 1.day.ago.all_day #昨日
+      @week = now.all_week #今週
+      @weekego = 1.week.ago.all_week #先週
+
   end
 
   def index

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'search', to: 'searches#search'
   devise_for :users
   resources :messages, only: [:create]
-  resources :rooms, only: [:create,:show] 
+  resources :rooms, only: [:create,:show]
   resources :users,only: [:show,:index,:edit,:update] do
 
   resource :relationships, only: [:create, :destroy] do
@@ -19,6 +19,5 @@ end
     end
     resource :favorites,only: [:create,:destroy]
   resources :post_comments, only: [:create, :destroy]
-
   end
 end
