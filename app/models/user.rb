@@ -16,6 +16,8 @@ class User < ApplicationRecord
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
 
+  has_many :group_users
+  has_many :groups, through: :group_users
 
   has_many :relationships, foreign_key: "follow_id", dependent: :destroy
   has_many :follows, through: :relationships, source: :followed

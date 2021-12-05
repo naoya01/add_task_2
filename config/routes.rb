@@ -10,9 +10,10 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy] do
     member do
       get 'follows','followers'
+      end
     end
   end
-end
+  resources :groups, only: [:index,:new, :create, :edit, :update]
   resources :books do
     collection do
       get 'search'

@@ -26,7 +26,6 @@ is_impressionable :counter_cache => true
     else
       Book.includes(:user).order('created_at DESC')
     end
-    
   end
 
 end

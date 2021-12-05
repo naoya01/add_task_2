@@ -24,10 +24,10 @@
        　<td><%= @user.books.where(created_at: @today).count %></td>
        　<td><%= @user.books.where(created_at: @yesterday).count %></td>
        　<td>
-         <% if  current_user.books.where(created_at: @today).count == 0 %>
+         <% if  @user.books.where(created_at: @yesterday).count == 0 %>
           前日の投稿はありません
          <% else %>
-         　<% @the_day_before =   @user.books.where(created_at: @today).count / @user.books.where(created_at: @yesterday).count.to_f  %>
+         　<% @the_day_before = @user.books.where(created_at: @today).count / @user.books.where(created_at: @yesterday).count.to_f  %>
          　<%= (@the_day_before * 100).round %>
          <% end %>
         </td>
@@ -50,7 +50,7 @@
        　<td><%= @user.books.where(created_at: @week).count %></td>
        　<td><%= @user.books.where(created_at: @weekago).count %></td>
        　<td>
-         <% if  current_user.books.where(created_at: @weekago).count == 0 %>
+         <% if  @user.books.where(created_at: @weekago).count == 0 %>
           前日の投稿はありません
          <% else %>
          　<% @the_day_before =   @user.books.where(created_at: @week).count / @user.books.where(created_at: @weekago).count %>
