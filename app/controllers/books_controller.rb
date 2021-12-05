@@ -87,6 +87,7 @@ class BooksController < ApplicationController
     @book = Book.new
     @books = Book.search(params[:keyword])
     @user = current_user
+    
   end
   private
 

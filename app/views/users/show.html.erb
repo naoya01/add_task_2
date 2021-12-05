@@ -35,6 +35,7 @@
       </tbody>
      </table>
     </div>
+
     <div class = "table_width">
      <table class="table table-bordered">
       <thead>
@@ -60,6 +61,71 @@
       </tbody>
      </table>
     </div>
+
+     <div class = "table_width">
+     <table class="table table-bordered">
+      <h2>7日分の投稿数</h2>
+      <thead>
+       <tr>
+        <th>6日前</th>
+        <th>5日前</th>
+        <th>4日前</th>
+        <th>3日前</th>
+        <th>2日前</th>
+        <th>昨日</th>
+        <th>今日</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+       　<td><%= @user.books.where(created_at: 6.day.ago.all_day).count %></td>
+       　<td><%= @user.books.where(created_at: 5.day.ago.all_day).count %></td>
+       　<td><%= @user.books.where(created_at: 4.day.ago.all_day).count %></td>
+       　<td><%= @user.books.where(created_at: 3.day.ago.all_day).count %></td>
+       　<td><%= @user.books.where(created_at: 2.day.ago.all_day).count %></td>
+       　<td><%= @user.books.where(created_at: @yesterday).count %></td>
+       　 <td><%= @user.books.where(created_at: @today).count %></td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+
+<span class="graph-title">7日間の投稿数の比較</span>
+<canvas id="myChart"></canvas>
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["6日前","5日前","4日前", "3日前", "2日前", "昨日", "今日"],
+    datasets: [{
+      label: '投稿した本の数',
+      backgroundColor: "rgba(0,0,80,0)",
+      borderColor: "rgba(0,70,200,1)",
+      data: [
+       <%= @user.books.where(created_at: 6.day.ago.all_day).count %>,
+       <%= @user.books.where(created_at: 5.day.ago.all_day).count %>,
+       <%= @user.books.where(created_at: 4.day.ago.all_day).count %>,
+       <%= @user.books.where(created_at: 3.day.ago.all_day).count %>,
+       <%= @user.books.where(created_at: 2.day.ago.all_day).count %>,
+       <%= @user.books.where(created_at: @yesterday).count %>,
+       <%= @user.books.where(created_at: @today).count %>,
+       ]
+    }]
+  }
+});
+</script>
+
+<%= form_with url: user_search_path(@user), method: :get do |f| %>
+  <%= f.date_field :created_at %>
+  <%= f.submit '検索', class: 'btn btn-primary'  %>
+<% end %>
+
+<div id="search_result">
+  <% if @search_book.present? %>
+    <%= render 'search', search_book: @search_book %>
+  <% end %>
+</div>
   </div>
 
   </div>
