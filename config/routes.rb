@@ -13,7 +13,10 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :groups, only: [:index,:new, :create, :edit, :update]
+  resources :groups do
+    get "join" => "groups#join"
+    delete  "leave" => "groups#leave"
+  end
   resources :books do
     collection do
       get 'search'

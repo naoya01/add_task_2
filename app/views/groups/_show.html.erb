@@ -1,0 +1,24 @@
+<tr>
+  <td><%= attachment_image_tag(group, :image, :fill, 50, 50, fallback: "no-image-icon.jpg",size: "50x50") %></td>
+  <td class="group__name">
+    <%= group.name %>
+  </td>
+  <td class="group__message">
+    <%= group.introduction %>
+  </td>
+  <td class="group__message">
+    <% group.users.each do |member| %>
+    <%= member.name %><br>
+    <% end %>
+  </td>
+  <td>
+    <% if group.owner_id != current_user.id %>
+      <% if group.group_users.find_by(user_id: current_user.id) %>
+        <%= link_to "Leave this group",group_leave_path(group),method: :delete,class:"btn btn-danger" %>
+      <% else %>
+        <%= link_to "Join this group",group_join_path(group),class:"btn btn-success" %>
+      <% end %>
+    <% end %>
+  </td>
+  </td>
+</tr>
