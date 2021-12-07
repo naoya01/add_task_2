@@ -38,7 +38,7 @@ class GroupsController < ApplicationController
   def join #追記！
     @group = Group.find(params[:group_id])
     @group.users << current_user
-    redirect_to  groups_path
+    redirect_to  group_path(@group)
   end
 
   def edit
@@ -62,8 +62,21 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:group_id])
     @group_user = @group.group_users.find_by(user_id: current_user)
     @group_user.delete
-    redirect_to groups_path
+    redirect_to  group_path(@group)
   end
+
+  def new_mail
+    @group = Group.find(params[:group_id])
+  end
+
+  def send_mail
+    @group = Group.find(params[:group_id])
+    group_users = @group.users
+    @mail_title = params[:mail_title]
+    @mail_content = params[:mail_content]
+    ContactMailer.send_mail(@mail_title, @mail_content,group_users).deliver
+  end
+
   private
   def group_params
     params.require(:group).permit(:name,:image,:introduction,:owner_id,user_ids: [])

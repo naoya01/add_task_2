@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   end
   resources :groups do
     get "join" => "groups#join"
+    get "new/mail" => "groups#new_mail"
+    get "send/mail" => "groups#send_mail"
     delete  "leave" => "groups#leave"
   end
   resources :books do
@@ -24,4 +26,6 @@ Rails.application.routes.draw do
     resource :favorites,only: [:create,:destroy]
   resources :post_comments, only: [:create, :destroy]
   end
+
+
 end

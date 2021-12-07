@@ -16,12 +16,14 @@
         <th>紹介文</th>
         <th>メンバー</th>
         <th></th>
+        <% if @group.owner_id == current_user.id %>
+        <th></th>
+        <% end %>
     </tr>
   </thead>
   <tbody>
       <%= render partial: 'show', locals: { group: @group } %>
   </tbody>
-
 </table>
     </div>
   </div>
